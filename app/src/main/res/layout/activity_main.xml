@@ -2,11 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/Image"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-
 
 
         <TextView
@@ -19,11 +18,20 @@
 
         <TextView
             android:id="@+id/flashcard_answer"
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:gravity="bottom|center"
             android:text="Barack Obama"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/image_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_baseline_add_circle_outline_24" />
 
 </RelativeLayout>
