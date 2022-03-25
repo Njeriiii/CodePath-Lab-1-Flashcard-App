@@ -34,4 +34,14 @@
             android:layout_alignParentBottom="true"
             android:src="@drawable/ic_baseline_add_circle_outline_24" />
 
+
+        <ImageView
+            android:id="@+id/image_next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/flashcard_answer"
+            android:src="@drawable/ic_outline_navigate_next_24" />
+
 </RelativeLayout>

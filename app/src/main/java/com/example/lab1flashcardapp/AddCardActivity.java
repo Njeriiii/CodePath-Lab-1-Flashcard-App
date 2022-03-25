@@ -30,11 +30,11 @@ public class AddCardActivity extends AppCompatActivity {
                 Intent data = new Intent();
                 String inputQuestion = ((EditText) findViewById(R.id.setQuestion)).getText().toString();
                 String inputAnswer = ((EditText) findViewById(R.id.inputAnswer)).getText().toString();
-                Log.d("AddCardActivity", "hi" + inputQuestion + ", " + inputAnswer );
+                //Log.d("AddCardActivity", "hi" + inputQuestion + ", " + inputAnswer );
                 data.putExtra("QuestionKey",inputQuestion);
                 data.putExtra("AnswerKey",inputAnswer);
                 String str = data.getExtras().getString("QuestionKey");
-                Log.d("AddCardActivity", "hi" + str );
+                //Log.d("AddCardActivity", "hi" + str );
                 setResult(RESULT_OK, data);
                 finish();
 
