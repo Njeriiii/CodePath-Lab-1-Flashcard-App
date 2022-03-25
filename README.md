@@ -7,7 +7,7 @@ save multiple user created cards so that users can revisit the app to review the
 
 ### App Walk-though
 
-<img src="lab_gif" width=200><br>
+<img src="lab_gif.gif" width=200><br>
 
 ## Required
 - [x] User can create a card and still see their created card when the app is relaunched.
