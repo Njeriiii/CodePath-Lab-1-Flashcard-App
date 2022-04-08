@@ -1,5 +1,6 @@
 package com.example.lab1flashcardapp;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;

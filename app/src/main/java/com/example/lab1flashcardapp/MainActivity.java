@@ -4,12 +4,16 @@ package com.example.lab1flashcardapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,10 +40,33 @@ public class MainActivity extends AppCompatActivity {
         flashcardQuestion = findViewById(R.id.flashcard_question);
         flashcardAnswer = findViewById(R.id.flashcard_answer);
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 flashcardQuestion.setVisibility(View.INVISIBLE);
                 flashcardAnswer.setVisibility(View.VISIBLE);
+
+                View answerSideView = findViewById(R.id.flashcard_answer);
+
+                //answer animation
+                //View questionSideView = findViewById(R.id.flashcard_question);
+
+                // get the center for the clipping circle
+                int cx = answerSideView.getWidth() / 2;
+                int cy = answerSideView.getHeight() / 2;
+
+                // get the final radius for the clipping circle
+                float finalRadius = (float) Math.hypot(cx, cy);
+
+                // create the animator for this view (the start radius is zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(answerSideView, cx, cy, 0f, finalRadius);
+
+// hide the question and show the answer to prepare for playing the animation!
+                //questionSideView.setVisibility(View.INVISIBLE);
+                answerSideView.setVisibility(View.VISIBLE);
+
+                anim.setDuration(3000);
+                anim.start();
             }
         });
 
@@ -49,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
                 startActivityForResult(intent, 100);
+
+                Intent i = new Intent(MainActivity.this, AddCardActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
 
@@ -88,6 +119,45 @@ public class MainActivity extends AppCompatActivity {
 
                 flashcardQuestion.setVisibility(View.VISIBLE);
                 flashcardAnswer.setVisibility(View.INVISIBLE);
+
+
+
+                //next question animation
+                final Animation leftOutAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.left_out);
+                final Animation rightInAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.right_in);
+
+                leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        // this method is called when the animation first starts
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        // this method is called when the animation is finished playing
+
+                        flashcardQuestion.startAnimation(rightInAnim);
+
+                        //moved previous logic here
+                        com.example.lab1flashcardapp.Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
+
+                        ((TextView) findViewById(R.id.flashcard_question)).setText(flashcard.getQuestion());
+                        ((TextView) findViewById(R.id.flashcard_answer)).setText(flashcard.getAnswer());
+
+                        flashcardQuestion.setVisibility(View.VISIBLE);
+                        flashcardAnswer.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        // we don't need to worry about this method
+                    }
+                });
+
+                findViewById(R.id.flashcard_question).startAnimation(leftOutAnim);
+                findViewById(R.id.flashcard_question).startAnimation(rightInAnim);
+
+
             }
         });
 
